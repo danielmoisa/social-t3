@@ -53,8 +53,16 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  username      String?   @unique // TODO revert optional
+  profilename   String?
+  bio           String?
   accounts      Account[]
   sessions      Session[]
+  tweets        Tweet[]
+  retweets      Retweet[]
+  likes         Like[]
+  followers     Follows[] @relation("follower")
+  following     Follows[] @relation("following")
 }
 
 model VerificationToken {
@@ -63,4 +71,55 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Follows {
+  follower    User     @relation("following", fields: [followerId], references: [id])
+  followerId  String
+  following   User     @relation("follower", fields: [followingId], references: [id])
+  followingId String
+  createdAt   DateTime @default(now())
+
+  @@id([followerId, followingId])
+}
+
+model Tweet {
+  id              String    @id @default(cuid())
+  content         String
+  createdAt       DateTime  @default(now())
+  deleted         Boolean   @default(false)
+  // media           String[]
+  author          User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId        String
+  originalTweet   Tweet?    @relation("replies", fields: [originalTweetId], references: [id], onDelete: Cascade)
+  originalTweetId String?
+  responses       Tweet[]   @relation("replies")
+  likes           Like[]
+  retweets        Retweet[]
+  hashtags        Hashtag[]
+}
+
+model Hashtag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  tweets    Tweet[]
+}
+
+model Retweet {
+  id        String   @id @default(cuid())
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
 }
