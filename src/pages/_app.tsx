@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
+import Layout from "../components/Layout";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,9 +16,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <div className={inter.className}>
-
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </SessionProvider>
     </div>
   );
