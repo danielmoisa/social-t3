@@ -2,10 +2,10 @@ import Image from 'next/image'
 import React from 'react'
 
 interface IPost {
-    authorName: string,
-    authorUsername: string,
+    authorName: string | null,
+    authorUsername: string | null,
     authorPic: string,
-    createdAt: string,
+    createdAt: Date,
     content: string
 }
 
@@ -18,14 +18,14 @@ const Post = ({ authorName, authorUsername, authorPic, createdAt, content }: IPo
                     src={authorPic}
                     height={46}
                     width={46}
-                    alt={authorUsername}
+                    alt={authorUsername ?? ""}
                 />
                 <div className='pl-3'>
                     <p>
                         {authorName}
                     </p>
                     <p className='text-[#606984]'>
-                        {`@${authorUsername}`}
+                        {`@${authorUsername ?? ""}`}
                     </p>
                 </div>
             </div>

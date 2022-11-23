@@ -58,8 +58,8 @@ model User {
   bio           String?
   accounts      Account[]
   sessions      Session[]
-  tweets        Tweet[]
-  retweets      Retweet[]
+  posts         Post[]
+  reposts       Repost[]
   likes         Like[]
   followers     Follows[] @relation("follower")
   following     Follows[] @relation("following")
@@ -83,33 +83,33 @@ model Follows {
   @@id([followerId, followingId])
 }
 
-model Tweet {
-  id              String    @id @default(cuid())
-  content         String
-  createdAt       DateTime  @default(now())
-  deleted         Boolean   @default(false)
+model Post {
+  id             String    @id @default(cuid())
+  content        String
+  createdAt      DateTime  @default(now())
+  deleted        Boolean   @default(false)
   // media           String[]
-  author          User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId        String
-  originalTweet   Tweet?    @relation("replies", fields: [originalTweetId], references: [id], onDelete: Cascade)
-  originalTweetId String?
-  responses       Tweet[]   @relation("replies")
-  likes           Like[]
-  retweets        Retweet[]
-  hashtags        Hashtag[]
+  author         User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId       String
+  originalPost   Post?     @relation("replies", fields: [originalPostId], references: [id], onDelete: Cascade)
+  originalPostId String?
+  responses      Post[]    @relation("replies")
+  likes          Like[]
+  reposts        Repost[]
+  hashtags       Hashtag[]
 }
 
 model Hashtag {
   id        String   @id @default(cuid())
   name      String   @unique
   createdAt DateTime @default(now())
-  tweets    Tweet[]
+  posts     Post[]
 }
 
-model Retweet {
+model Repost {
   id        String   @id @default(cuid())
-  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
-  tweetId   String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
@@ -117,8 +117,8 @@ model Retweet {
 
 model Like {
   id        String   @id @default(cuid())
-  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
-  tweetId   String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
