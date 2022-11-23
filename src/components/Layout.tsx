@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaHashtag } from 'react-icons/fa'
 import ComposePanel from './ComposePanel'
 import NavigationPanel from './NavigationPanel'

@@ -1,35 +1,31 @@
 import Image from 'next/image'
-import React from 'react'
+import { type RouterOutputs } from '../utils/trpc';
 
-interface IPost {
-    authorName: string | null,
-    authorUsername: string | null,
-    authorPic: string,
-    createdAt: Date,
-    content: string
-}
+type PostByIdOutput = RouterOutputs['posts']['byId'];
 
-const Post = ({ authorName, authorUsername, authorPic, createdAt, content }: IPost) => {
+const Post = (props: { post: PostByIdOutput }) => {
+    const { post } = props;
+
     return (
         <article className='border-b-[1px] border-gray-700 p-4 text-[15px] bg-[#282C37]'>
             <div className='py-2 flex flex-row'>
                 <Image
                     className='rounded-sm'
-                    src={authorPic}
+                    src={post.author.image ?? "/profilePic.jpeg"}
                     height={46}
                     width={46}
-                    alt={authorUsername ?? ""}
+                    alt={post.author.name ?? ""}
                 />
                 <div className='pl-3'>
                     <p>
-                        {authorName}
+                        {post.author?.username}
                     </p>
                     <p className='text-[#606984]'>
-                        {`@${authorUsername ?? ""}`}
+                        {`@${post.author.name ?? ""}`}
                     </p>
                 </div>
             </div>
-            <div>{content}</div>
+            <div>{post.content}</div>
         </article>
     )
 }
