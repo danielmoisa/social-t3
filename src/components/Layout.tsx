@@ -13,7 +13,8 @@ const Layout = ({ children }: ILayout) => {
                 <ComposePanel />
 
                 <div className='w-full max-w-[580px] bg-[#313543] h-[300vh] rounded-md'>
-                    <div className='sticky top-5 px-4 py-3 bg-[#313543]'><FaHashtag size={20} className='inline mr-1' /> Explore</div>
+                    <div className='w-full h-[20px] fixed t-0 mt-[-20px] max-w-[580px] bg-[#191B22]'></div>
+                    <div className='sticky top-3 px-4 py-3 bg-[#313543]'><FaHashtag size={20} className='inline mr-1' /> Explore</div>
                     {children}
                 </div>
                 <NavigationPanel />
