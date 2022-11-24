@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import Post from './Post'
 import { trpc } from "../utils/trpc";
 
@@ -8,8 +6,7 @@ const Feed = () => {
 
     if (!!data || isLoading) <div>Loading...</div>
 
-    return data?.map(post => <Link href={`/post/${post.id}`} key={post.id}><Post post={post} />
-    </Link>)
+    return data?.map(post => <Post key={post.id} post={post} />)
 
 
 }

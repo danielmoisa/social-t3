@@ -10,7 +10,6 @@ const Layout = ({ children }: ILayout) => {
     return (
         <main className="flex min-h-screen flex-col items-center  bg-[#191b22] text-white py-3">
             <div className="relative container flex flex-row  justify-center  px-4">
-
                 <ComposePanel />
 
                 <div className='w-full max-w-[580px] bg-[#313543] h-[300vh] rounded-md'>

@@ -7,7 +7,7 @@ import Post from "../../components/Post";
 const SinglePost = () => {
     const id = useRouter().query.id as string;
     const postQuery = trpc.posts.byId.useQuery({ id });
-    console.log("id: ", id)
+
     if (postQuery.error) {
         return (
             <NextError
