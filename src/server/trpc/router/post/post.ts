@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure } from "../../trpc";
 
 const defaultPostSelect = Prisma.validator<Prisma.PostSelect>()({
   author: true,
@@ -12,7 +12,7 @@ const defaultPostSelect = Prisma.validator<Prisma.PostSelect>()({
   id: true,
 });
 
-export const postsRouter = router({
+export const postRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.post.findMany({
       select: defaultPostSelect

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FaBookmark, FaEllipsisH, FaGlobeAmericas, FaReply, FaRetweet, FaShareAlt, FaStar } from 'react-icons/fa';
 import { type RouterOutputs } from '../utils/trpc';
 
-type PostByIdOutput = RouterOutputs['posts']['byId'];
+type PostByIdOutput = RouterOutputs['post']['byId'];
 
 const Post = (props: { post: PostByIdOutput }) => {
     const { post } = props;

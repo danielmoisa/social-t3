@@ -2,7 +2,7 @@ import Post from './Post'
 import { trpc } from "../utils/trpc";
 
 const Feed = () => {
-    const { data, isLoading } = trpc.posts.getAll.useQuery();
+    const { data, isLoading } = trpc.post.getAll.useQuery();
 
     if (!!data || isLoading) <div>Loading...</div>
 
