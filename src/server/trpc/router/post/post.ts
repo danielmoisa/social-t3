@@ -15,7 +15,10 @@ const defaultPostSelect = Prisma.validator<Prisma.PostSelect>()({
 export const postRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.post.findMany({
-      select: defaultPostSelect
+      select: defaultPostSelect,
+      orderBy: {
+        createdAt: "desc"
+      }
     });
   }),
   byId: publicProcedure
@@ -38,4 +41,19 @@ export const postRouter = router({
     }
     return post;
   }),
+  create: publicProcedure
+    .input(
+      z.object({
+        id: z.string().uuid().optional(),
+        content: z.string().min(1).max(300),
+        authorId: z.string()
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const post = await ctx.prisma.post.create({
+        data: input,
+        select: defaultPostSelect,
+      });
+      return post;
+    }),
 });
