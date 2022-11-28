@@ -6,7 +6,11 @@ const Feed = () => {
 
     if (!!data || isLoading) <div>Loading...</div>
 
-    return data?.map(post => <Post key={post.id} post={post} />)
+    return (
+        <>
+            {data?.map(post => <Post key={post.id} post={post} />)}
+        </>
+    )
 
 
 }
