@@ -12,7 +12,7 @@ const Post = (props: { post: PostByIdOutput }) => {
     return (
         <article className='border-b-[1px] border-gray-700 p-4 text-[15px] bg-[#282C37]'>
             <div className='py-2 flex flex-row items-center justify-between'>
-                <div className='flex flex-row'>
+                <Link href={`/user/${post.authorId}`} className='flex flex-row'>
                     <Image
                         className='rounded-sm'
                         src={post.author.image ?? "/profilePic.jpeg"}
@@ -29,7 +29,7 @@ const Post = (props: { post: PostByIdOutput }) => {
                         </p>
                     </div>
 
-                </div>
+                </Link>
                 <div className='flex items-center justify-center text-sm text-[#606984]'>
                     <>
                         <FaGlobeAmericas className='mr-1' /> {formatPostDate(post.createdAt)}
