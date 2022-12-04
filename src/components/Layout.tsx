@@ -10,7 +10,7 @@ interface ILayout {
 
 const Layout = ({ children }: ILayout) => {
     const router = useRouter();
-    const isPost = router.pathname.startsWith("/post")
+    const isPost = router.pathname.startsWith("/post") || router.pathname.startsWith("/user")
 
     return (
         <main className="flex min-h-screen flex-col items-center  bg-[#191b22] text-white py-3">

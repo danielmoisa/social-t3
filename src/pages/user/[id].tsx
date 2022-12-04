@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import NextError from 'next/error';
 import Image from 'next/image'
 import { trpc } from "../../utils/trpc";
+import Post from "../../components/Post";
 
 const SingleUser = () => {
     const id = useRouter().query.id as string;
@@ -19,7 +20,9 @@ const SingleUser = () => {
     if (userQuery.status !== 'success') {
         return <>Loading...</>;
     }
+
     const { data } = userQuery;
+    console.log(data)
     return <>
         <Image
             src="/cover.png"
@@ -42,6 +45,10 @@ const SingleUser = () => {
             <p>{data.posts.length} <span className="text-[#9baec8] mr-[1rem]">Posts</span></p>
             <p>{data.following.length} <span className="text-[#9baec8] mr-[1rem]">Following</span></p>
             <p>{data.followers.length} <span className="text-[#9baec8] mr-[1rem]">Followers</span></p>
+        </div>
+
+        <div>
+            {data?.posts?.map((post) => <Post key={post.id} post={post} />)}
         </div>
     </>
 }

@@ -25,8 +25,32 @@ export const userRouter = router({
   .query(async ({ input, ctx }) => {
     const { id } = input;
     const user = await ctx.prisma.user.findUnique({
+      //@TODO: refactor
       where: { id },
-      select: defaultUserSelect,
+      select: {
+         posts: { select: {
+          author: {
+            select: {
+               name: true,
+               image: true,
+               username: true,
+            }
+          },
+          authorId: true,
+          content: true,
+          createdAt: true,
+          id: true,
+        }
+      },
+         following: true,
+         followers: true,
+         bio: true,
+         email: true,
+         id: true,
+         username: true,
+         image: true,
+         name: true,
+      }
     });
     if (!user) {
       throw new TRPCError({
