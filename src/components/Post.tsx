@@ -36,6 +36,7 @@ const Post = (props: { post: PostByIdOutput }) => {
                     </>
                 </div>
             </div>
+
             <Link href={`/post/${post.id}`} >
                 <div>
                     {post.content}
@@ -55,7 +56,7 @@ const Post = (props: { post: PostByIdOutput }) => {
 
 const formatPostDate = (date: Date) => {
     const oneDay = 24 * 60 * 60 * 1000
-    return date.getMilliseconds() < oneDay ? `${dayjs(date).format('HH')}h` : dayjs(date).format('MMM YY')
+    return date.getTime() < oneDay ? `${dayjs(date).format('HH')}h` : dayjs(date).format('MMM YY')
 }
 
 export default Post

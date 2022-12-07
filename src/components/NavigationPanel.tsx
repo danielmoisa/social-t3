@@ -2,6 +2,8 @@ import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGlobeAmericas, FaHashtag, FaUsers } from 'react-icons/fa'
+import { MdSettings } from "react-icons/md";
+
 
 const NavigationPanel = () => {
     const { data: sessionData } = useSession();
@@ -22,7 +24,7 @@ const NavigationPanel = () => {
                     <Link className='block p-3 hover:text-[#8c8dff]' href="#"><FaUsers size={20} className='inline mr-1' /> Local</Link>
                     <Link className='block p-3 hover:text-[#8c8dff]' href="#"><FaGlobeAmericas size={20} className='inline mr-1' /> Federated</Link>
                 </div>
-                {sessionData ? <Link href="/profile" className='block p-3 hover:text-[#8c8dff]'><FaGlobeAmericas size={20} className='inline mr-1' /> Preferences</Link>
+                {sessionData ? <Link href="/profile" className='block pl-5 p-3 hover:text-[#8c8dff]'><MdSettings size={20} className='inline mr-1' /> Preferences</Link>
                     : <>
                         <p className='text-[13px] text-[#9baec8] p-3'>
                             Sign in to follow profiles or hashtags, favourite, share and reply to posts, or interact from your account on a server.
